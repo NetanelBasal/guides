@@ -1,12 +1,7 @@
-/*.error {
-    background: #F2DEDE;
-    color:#A94464;
-    width:100%;
-}*/
 input.ng-invalid.ng-dirty {
   background-color: #F2DEDE;
 }
-input.ng-valid {
+input.ng-valid.ng-dirty  {
   background-color : #DFF0D8;
 }
 textarea.ng-invalid.ng-dirty {
@@ -15,3 +10,4 @@ textarea.ng-invalid.ng-dirty {
 textarea.ng-valid {
    background-color : #DFF0D8;
 }
+

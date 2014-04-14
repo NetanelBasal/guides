@@ -1,26 +1,90 @@
 <div class="small-6 small-centered columns">
-<form name="signup">
+<form name="signup" novalidate>
   <fieldset>
     <legend>Register</legend>
 
     <label>Firstname
-      <input type="text" ng-model="user.firstname" name="firstname">
+      <input type="text" ng-model="user.firstname" name="firstname" required ng-minlength="2" ng-pattern="/^[A-z]*$/">
     </label>
+     <div class="error"
+                        ng-show="signup.firstname.$dirty && signup.firstname.$invalid">
+                        <small class="error"
+                        ng-show="signup.firstname.$error.required">
+                        This field is required
+                        </small>
+                        <small class="error"
+                        ng-show="signup.firstname.$error.minlength">
+                        The name must be at least two characthres
+                        </small>
+                         <small class="error"
+                        ng-show="signup.firstname.$error.pattern">
+                        The name must be only letters
+                        </small>
+                    </div>
     <label>Lastname
-      <input type="text" ng-model="user.lastname" name="lastname">
+      <input type="text" ng-model="user.lastname" name="lastname" required ng-minlength="2" ng-pattern="/^[A-z]*$/">
     </label>
+       <div class="error"
+                        ng-show="signup.lastname.$dirty && signup.lastname.$invalid">
+                        <small class="error"
+                        ng-show="signup.lastname.$error.required">
+                        This field is required
+                        </small>
+                        <small class="error"
+                        ng-show="signup.lastname.$error.minlength">
+                        The name must be at least two characthres
+                        </small>
+                         <small class="error"
+                        ng-show="signup.lastname.$error.pattern">
+                        The name must be only letters
+                        </small>
+                    </div>
     <label>Email
-      <input type="email" ng-model="user.email" name="email">
+      <input type="email" ng-model="user.email" name="emailaddress" required>
     </label>
+       <div class="error"
+                        ng-show="signup.emailaddress.$dirty && signup.emailaddress.$invalid">
+                        <small class="error"
+                        ng-show="signup.emailaddress.$error.required">
+                        This field is required
+                        </small>
+                        <small class="error"
+                        ng-show="signup.emailaddress.$error.email">
+                        The email must be valid email
+                        </small>
+                    </div>
+
      <label>Password
-      <input type="password" ng-model="user.password" name="password">
+      <input type="password" ng-model="user.password" name="password" required ng-minlength="6" class="password">
     </label>
+    <div class="error"
+                        ng-show="signup.password.$dirty && signup.password.$invalid">
+                        <small class="error"
+                        ng-show="signup.password.$error.required">
+                        This field is required
+                        </small>
+                        <small class="error"
+                        ng-show="signup.password.$error.minlength">
+                       The password must be at least 6 characters
+                        </small>
+                    </div>
      <label>Password Againn
-      <input type="password" ng-model="user.passwordagain" name="passwordagain">
+      <input type="password" ng-model="user.passwordagain" name="passwordagain" pw-check="password" password-match-check required>
     </label>
+    <div class="error"
+                        ng-show="signup.passwordagain.$dirty && signup.passwordagain.$invalid">
+                        <small class="error"
+                        ng-show="signup.passwordagain.$error.required">
+                        This field is required
+                        </small>
+                        <small class="error"
+                        ng-show="signup.passwordagain.$error.pwmatch">
+                       The passwords dont match
+                        </small>
+                    </div>
 
 
-    <input type="button" value="Register" class="button button-primary expand">
+    <input type="button" value="Register" class="button button-primary expand" ng-disabled="signup.$invalid">
   </fieldset>
 </form>
 </div>

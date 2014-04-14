@@ -1,14 +1,28 @@
 <div class="small-6 small-centered columns">
-    <form name="login">
+    <form name="login" novalidate>
         <fieldset>
             <legend>Login</legend>
 
             <label>Email
-                <input type="email" ng-model="login.email" name="email" required>
+                <input type="email" ng-model="login.email" name="emailaddress" required>
             </label>
+                <div class="error"
+                        ng-show="login.emailaddress.$dirty && login.emailaddress.$invalid">
+                        <small class="error"
+                        ng-show="login.emailaddress.$error.required">
+                        This field is required
+                        </small>
+                    </div>
             <label>Password
                 <input type="password" ng-model="login.passsword" name="password" required>
             </label>
+              <div class="error"
+                        ng-show="login.password.$dirty && login.password.$invalid">
+                        <small class="error"
+                        ng-show="login.password.$error.required">
+                        This field is required
+                        </small>
+                    </div>
 
             <input type="button" value="Login" class="button button-primary expand" ng-disabled="login.$invalid">
         </fieldset>
