@@ -1,0 +1,16 @@
+<div class="small-6 small-centered columns">
+    <form name="login">
+        <fieldset>
+            <legend>Login</legend>
+
+            <label>Email
+                <input type="email" ng-model="login.email" name="email" required>
+            </label>
+            <label>Password
+                <input type="password" ng-model="login.passsword" name="password" required>
+            </label>
+
+            <input type="button" value="Login" class="button button-primary expand" ng-disabled="login.$invalid">
+        </fieldset>
+    </form>
+</div>
