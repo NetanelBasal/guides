@@ -8,10 +8,11 @@
 <body ng-app="Guides">
 
     @include('template.nav-bar')
-    <div class="small-12 columns">
-        <div ui-view></div>
+    <div class="row">
+        <div class="small-12 columns">
+            <div ui-view></div>
+        </div>
     </div>
-
 
 
     @include('template.scripts')

@@ -1,4 +1,4 @@
-var Guides = angular.module('Guides', ['ui.router'], function($interpolateProvider) {
+var Guides = angular.module('Guides', ['ui.router', 'ngAnimate'], function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 });
