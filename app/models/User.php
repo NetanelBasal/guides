@@ -5,6 +5,20 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
+	public static function checkIfUserValid($email,$password) {
+	    if(Auth::attempt(['email' => $email, 'password' => $password])) {
+	    	return true;
+	    }
+	    return false;
+	}
+
+	public static function setUserToken() {
+			$user = Auth::user();
+	    	$user->session_token = Hash::make(Str::random(24));
+	    	if($user->save()) return true;
+	    	return false;
+	}
+
 	/**
 	 * The database table used by the model.
 	 *

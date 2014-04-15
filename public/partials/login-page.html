@@ -4,7 +4,7 @@
             <legend>Login</legend>
 
             <label>Email
-                <input type="email" ng-model="login.email" name="emailaddress" required>
+                <input type="email" ng-model="email" name="emailaddress" required>
             </label>
                 <div class="error"
                         ng-show="login.emailaddress.$dirty && login.emailaddress.$invalid">
@@ -14,7 +14,7 @@
                         </small>
                     </div>
             <label>Password
-                <input type="password" ng-model="login.passsword" name="password" required>
+                <input type="password" ng-model="password" name="password" required>
             </label>
               <div class="error"
                         ng-show="login.password.$dirty && login.password.$invalid">
@@ -24,7 +24,7 @@
                         </small>
                     </div>
 
-            <input type="button" value="Login" class="button button-primary expand" ng-disabled="login.$invalid">
+            <input type="button" value="Login" class="button button-primary expand" ng-disabled="login.$invalid" ng-click="loginUser()">
         </fieldset>
     </form>
 </div>

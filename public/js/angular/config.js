@@ -3,7 +3,11 @@ var Guides = angular.module('Guides', ['ui.router', 'ngAnimate'], function($inte
     $interpolateProvider.endSymbol(']]');
 });
 
-
+Guides.run(['$rootScope', 'authService',
+    function($rootScope, authService) {
+        $rootScope.$auth = authService;
+    }
+])
 
 
 

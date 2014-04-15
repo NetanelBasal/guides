@@ -1,3 +1,6 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 input.ng-invalid.ng-dirty {
   background-color: #F2DEDE;
 }
@@ -10,11 +13,15 @@ textarea.ng-invalid.ng-dirty {
 textarea.ng-valid {
    background-color : #DFF0D8;
 }
+
+.alert-box.warning {
+  background: #ea7272;
+}
 /*.well[ui-view]{
  height: 65px;
 }*/
 
-[ui-view].ng-enter,
+/*[ui-view].ng-enter,
 [ui-view].ng-leave {
   position: absolute;
   left: 0;
@@ -51,4 +58,4 @@ textarea.ng-valid {
      -moz-transform: translate3d(-100%, 0, 0);
        -o-transform: translate3d(-100%, 0, 0);
           transform: translate3d(-100%, 0, 0);
-}
+}*/
