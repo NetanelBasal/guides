@@ -15,9 +15,12 @@ var Guides = angular.module('Guides', ['ui.router', 'ngAnimate'], function($inte
 ===============================================*/
 
 
-run(['$rootScope', 'authService', '$state', 'flashService',
-    function($rootScope, authService, $state, flashService) {
+run(['$rootScope', 'authService', '$state', 'flashService', 'sessionService',
+    function($rootScope, authService, $state, flashService, sessionService) {
+
         $rootScope.$auth = authService;
+        $rootScope.$session = sessionService;
+
         $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
             flashService.clearError();
             if (toState.admin && !authService.isAdmin()) {

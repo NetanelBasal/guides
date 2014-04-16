@@ -45,4 +45,8 @@ Guides.directive('passwordMatchCheck', [
             }
         }
     }
-]);
+]).directive('copyToModel', function($parse) {
+    return function(scope, element, attrs) {
+        $parse(attrs.ngModel).assign(scope, attrs.value);
+    }
+});

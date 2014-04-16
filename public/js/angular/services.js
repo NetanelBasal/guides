@@ -113,6 +113,24 @@ factory('categoryService', function($http) {
     return {
         addCategory: function(category) {
             return $http.post('/addcategory', category)
+        },
+        getCategories: function() {
+            return $http.get('/getcategories');
+        }
+    }
+}).
+
+
+/*=========================================
+=            new Guide Service            =
+=========================================*/
+
+
+factory('newguideService', function($http) {
+
+    return {
+        saveGuide: function(guide) {
+            return $http.post('/api/guides', guide);
         }
     }
 })

@@ -60,7 +60,10 @@ Guides
                     sessionService.set('admin', true);
                 }
                 sessionService.set('loggedin', true);
-                $rootScope.$user = data;
+                sessionService.set('user_id', data.id);
+                sessionService.set('firstname', data.firstname);
+                sessionService.set('email', data.email);
+
                 $state.go('home');
             }).error(function(data) {
                 flashService.showError(data.flash);
@@ -86,8 +89,26 @@ Guides
 =============================================*/
 
 
-.controller('newguideController', ['$scope',
-    function($scope) {
+.controller('newguideController', ['$scope', 'newguideService', 'categoryService',
+    function($scope, newguideService, categoryService) {
+
+
+        categoryService.getCategories().success(function(res) {
+            $scope.categories = res;
+        })
+
+        $scope.$watch('categoryid', function(newval) {
+            if (newval) {
+                $scope.n.category_id = newval.id;
+            }
+        })
+
+        $scope.addnewguide = function() {
+            newguideService.saveGuide($scope.n).success(function(re) {
+                if (re.save) $scope.successaddguide = 'Thanks you the Guide is saved!';
+            })
+
+        }
 
     }
 ])

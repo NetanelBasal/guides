@@ -15,9 +15,22 @@ Route::post('logout', 'UserController@logOut');
 Route::post('signup', 'UserController@signup');
 Route::post('checkifemailexits', 'UserController@checkIfEmailExits');
 
+/*=============================================
+=           Admin Controller            =
+=============================================*/
+
+Route::post('addcategory', 'AdminController@addCategory');
+
 
 /*=============================================
 =            Categories Controller            =
 =============================================*/
 
-Route::post('addcategory', 'CategoryController@addCategory');
+
+Route::get('getcategories', 'CategoryController@index');
+
+/*=============================================
+=            Guides Resource            =
+=============================================*/
+
+Route::resource('api/guides', 'GuideController');
