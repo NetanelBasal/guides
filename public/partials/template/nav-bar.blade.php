@@ -20,6 +20,7 @@
       <li><a ui-sref="guides">all Guides</a></li>
       <li><a ui-sref="user-profile" ng-show="$auth.isLoggedIn()">my Profile</a></li>
       <li><a ui-sref="new-guide" ng-show="$auth.isLoggedIn()">write Guide</a></li>
+      <li><a ui-sref="new-category" ng-show="$auth.isAdmin()">add Category</a></li>
 
     </ul>
   </section>

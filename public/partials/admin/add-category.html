@@ -1,0 +1,15 @@
+<div class="small-12 columns small-centered">
+    <h1>Add Category</h1>
+     <form name="addCategory" novalidate>
+        <fieldset>
+
+            <label>category name:
+                <input type="text" ng-model="category">
+            </label>
+            <input type="button" value="Add Category" class="button button-primary expand" ng-click="addcategory()">
+        </fieldset>
+        <div ng-show="categoryMessage" class="alert-box">
+            [[categoryMessage]]
+        </div>
+    </form>
+</div>

@@ -78,3 +78,11 @@ Guides.factory('authInterceptor', function($rootScope, $q, sessionService, $loca
         }
     };
 });
+
+Guides.factory('categoryService', function($http) {
+    return {
+        addCategory: function(category) {
+            return $http.post('/addcategory', category)
+        }
+    }
+})

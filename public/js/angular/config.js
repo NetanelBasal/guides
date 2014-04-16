@@ -64,6 +64,12 @@ Guides
                 controller: 'userprofileController',
                 authenticate: true,
                 admin: true
+            }).
+            state('new-category', {
+                url: '/add-category',
+                templateUrl: 'partials/admin/add-category.html',
+                controller: 'categoryController',
+                admin: true
             })
         }
     ])

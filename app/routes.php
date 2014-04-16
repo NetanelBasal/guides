@@ -17,6 +17,14 @@ Route::post('logout', 'UserController@logOut');
 Route::post('signup', 'UserController@signup');
 Route::post('checkifemailexits', 'UserController@checkIfEmailExits');
 
-Route::post('admin', ['before' => 'admin', function() {
-     return Response::json('ok');
-}]);
+// Route::post('admin', ['before' => 'admin', function() {
+//      return Response::json('ok');
+// }]);
+
+/**
+*
+* Categories Controller
+*
+**/
+
+Route::post('addcategory', 'CategoryController@addCategory');

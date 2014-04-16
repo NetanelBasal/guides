@@ -64,4 +64,18 @@ Guides
         function($scope) {
 
         }
+    ]).controller('categoryController', ['$scope', 'categoryService',
+        function($scope, categoryService) {
+            $scope.addcategory = function() {
+                categoryService.addCategory({
+                    name: $scope.category
+                }).success(function(res) {
+                    if (res.save) {
+                        $scope.categoryMessage = "Category been saved!"
+                    } else {
+                        $scope.categoryMessage = "something went wrong"
+                    }
+                })
+            }
+        }
     ])
