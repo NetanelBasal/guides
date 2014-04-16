@@ -25,12 +25,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/**
 	 * set User Token in database for checking if user logged in
 	 */
-	public static function setUserToken() {
-			$user = Auth::user();
-	    	$user->session_token = Hash::make(Str::random(24));
-	    	if($user->save()) return true;
-	    	return false;
-	}
+	// public static function setUserToken() {
+	// 		$user = Auth::user();
+	//     	$user->session_token = Hash::make(Str::random(24));
+	//     	if($user->save()) return true;
+	//     	return false;
+	// }
 
 	/**
 	 * when insert password on signup make the password hashed

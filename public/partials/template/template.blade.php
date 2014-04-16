@@ -14,7 +14,7 @@
             [[flasherror]]
         </div>
     </div>
-
+ <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <div class="small-12 columns">
             <div ui-view></div>
         </div>

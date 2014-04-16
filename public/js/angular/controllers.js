@@ -1,9 +1,11 @@
 Guides
-    .controller('navbarController', ['$scope', 'authService', '$state', 'sessionService',
-        function($scope, authService, $state, sessionService) {
+    .controller('navbarController', ['$scope', 'authService', '$state', 'sessionService', '$rootScope',
+        function($scope, authService, $state, sessionService, $rootScope) {
             $scope.logout = function() {
                 authService.logout().success(function() {
-                    sessionService.unset('token');
+                    sessionService.unset('loggedin');
+                    sessionService.unset('admin');
+                    $rootScope.$user = {};
                     $state.go('home');
                 })
             }
@@ -27,8 +29,8 @@ Guides
             }
 
         }
-    ]).controller('loginController', ['$scope', 'authService', 'sessionService', '$state', 'flashService',
-        function($scope, authService, sessionService, $state, flashService) {
+    ]).controller('loginController', ['$scope', 'authService', 'sessionService', '$state', 'flashService', '$rootScope',
+        function($scope, authService, sessionService, $state, flashService, $rootScope) {
 
             $scope.loginUser = function() {
                 var cred = {
@@ -37,7 +39,11 @@ Guides
                 }
                 authService.checkIfUserValid(cred).success(function(data) {
                     flashService.clearError();
-                    sessionService.set('token', data.session_token);
+                    if (data.admin) {
+                        sessionService.set('admin', true);
+                    }
+                    sessionService.set('loggedin', true);
+                    $rootScope.$user = data;
                     $state.go('home');
                 }).error(function(data) {
                     flashService.showError(data.flash);
@@ -45,8 +51,9 @@ Guides
 
             }
         }
-    ]).controller('guidesController', ['$scope',
-        function($scope) {
+    ]).controller('guidesController', ['$scope', '$http',
+        function($scope, $http) {
+
 
         }
     ]).controller('newguideController', ['$scope',

@@ -9,13 +9,18 @@ Guides.factory('authService', ['$http', 'sessionService',
         }
 
         var isLoggedIn = function() {
-            return sessionService.get('token');
+            return sessionService.get('loggedin');
+        }
+
+        var isAdmin = function() {
+            return sessionService.get('admin');
         }
 
         return {
             checkIfUserValid: checkIfUserValid,
             logout: logout,
-            isLoggedIn: isLoggedIn
+            isLoggedIn: isLoggedIn,
+            isAdmin: isAdmin
         };
     }
 ]).
@@ -55,4 +60,21 @@ factory("flashService", function($rootScope) {
             $rootScope.flasherror = "";
         }
     }
+});
+
+
+
+Guides.factory('authInterceptor', function($rootScope, $q, sessionService, $location, flashService) {
+    return {
+        request: function(config) {
+            return config;
+        },
+        response: function(response) {
+            if (response.status === 401) {
+                $location.path('/login');
+                flashService.showError('please login to access this page')
+            }
+            return response || $q.when(response);
+        }
+    };
 });

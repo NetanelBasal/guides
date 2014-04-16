@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+	if(!Auth::check())  return Response::json(['user' => 'notvalid'], 401);
 });
 
 
@@ -73,8 +73,20 @@ Route::filter('guest', function()
 
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
+	if (Session::token() != Input::json('token'))
 	{
-		throw new Illuminate\Session\TokenMismatchException;
+		return Response::json(['user' => 'notvalid'], 401);
 	}
 });
+
+Route::filter('admin', function() {
+    if (!Auth::check()) {
+         return Response::json(['admin' => false], 401);
+    }elseif(!Auth::user()->admin == 1) {
+         return Response::json(['admin' => false], 401);
+    }
+})
+
+
+
+;

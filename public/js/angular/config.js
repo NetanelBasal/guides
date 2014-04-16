@@ -3,13 +3,27 @@ var Guides = angular.module('Guides', ['ui.router', 'ngAnimate'], function($inte
     $interpolateProvider.endSymbol(']]');
 });
 
-Guides.run(['$rootScope', 'authService',
-    function($rootScope, authService) {
+Guides.run(['$rootScope', 'authService', '$state', 'flashService',
+    function($rootScope, authService, $state, flashService) {
         $rootScope.$auth = authService;
+        $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+            flashService.clearError();
+            if (toState.admin && !authService.isAdmin()) {
+                $state.go("home");
+                event.preventDefault();
+            } else if (toState.authenticate && !authService.isLoggedIn()) {
+                // User isn’t authenticated
+                $state.go("login");
+                flashService.showError('please login to access this page')
+                event.preventDefault();
+            }
+        });
     }
-])
+]);
 
-
+Guides.config(function($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptor');
+});
 
 Guides
     .config(['$stateProvider', '$urlRouterProvider',
@@ -35,17 +49,21 @@ Guides
             state('guides', {
                 url: '/guides',
                 templateUrl: 'partials/all-guides.html',
-                controller: 'guidesController'
+                controller: 'guidesController',
+
             }).
             state('new-guide', {
                 url: '/new-guide',
                 templateUrl: 'partials/new-guide.html',
-                controller: 'newguideController'
+                controller: 'newguideController',
+                authenticate: true,
             }).
             state('user-profile', {
                 url: '/profile',
                 templateUrl: 'partials/user-profile.html',
-                controller: 'userprofileController'
+                controller: 'userprofileController',
+                authenticate: true,
+                admin: true
             })
         }
     ])
