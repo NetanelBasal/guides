@@ -1,3 +1,7 @@
+/*====================================================
+=            passwordMatchCheck Directive            =
+====================================================*/
+
 Guides.directive('passwordMatchCheck', [
 
     function() {
@@ -14,9 +18,14 @@ Guides.directive('passwordMatchCheck', [
             }
         }
     }
-]);
+])
 
-Guides.directive('checkIfEmailExits', ['$http',
+
+/*=============================================
+=            checkIfEmailExits Directive           =
+=============================================*/
+
+.directive('checkIfEmailExits', ['$http',
 
     function($http) {
         return {

@@ -1,3 +1,7 @@
+/*=============================================
+=            navbarController            =
+=============================================*/
+
 Guides
     .controller('navbarController', ['$scope', 'authService', '$state', 'sessionService', '$rootScope',
         function($scope, authService, $state, sessionService, $rootScope) {
@@ -9,73 +13,110 @@ Guides
                     $state.go('home');
                 })
             }
+            $scope.$state = $state;
         }
     ])
-    .controller('mainController', ['$scope',
-        function($scope) {
 
+/*=============================================
+=           mainController           =
+=============================================*/
+
+.controller('mainController', ['$scope',
+    function($scope) {
+
+    }
+])
+
+/*=============================================
+=            registerController            =
+=============================================*/
+
+.controller('registerController', ['$scope', 'registerService', '$state', 'flashService',
+    function($scope, registerService, $state, flashService) {
+        $scope.user = {};
+
+        $scope.login = function() {
+            registerService.signup($scope.user).success(function(res) {
+                flashService.clearError();
+                $state.go('login');
+            }).error(function() {
+                flashService.showError('Something is wrong, please try again later');
+            })
         }
-    ]).controller('registerController', ['$scope', 'registerService', '$state', 'flashService',
-        function($scope, registerService, $state, flashService) {
-            $scope.user = {};
 
-            $scope.login = function() {
-                registerService.signup($scope.user).success(function(res) {
-                    flashService.clearError();
-                    $state.go('login');
-                }).error(function() {
-                    flashService.showError('Something is wrong, please try again later');
-                })
-            }
+    }
+])
+/*=============================================
+=            loginController            =
+=============================================*/
 
-        }
-    ]).controller('loginController', ['$scope', 'authService', 'sessionService', '$state', 'flashService', '$rootScope',
-        function($scope, authService, sessionService, $state, flashService, $rootScope) {
+.controller('loginController', ['$scope', 'authService', 'sessionService', '$state', 'flashService', '$rootScope',
+    function($scope, authService, sessionService, $state, flashService, $rootScope) {
 
-            $scope.loginUser = function() {
-                var cred = {
-                    email: $scope.email,
-                    password: $scope.password
+        $scope.loginUser = function() {
+            authService.checkIfUserValid($scope.cred).success(function(data) {
+                flashService.clearError();
+                if (data.admin) {
+                    sessionService.set('admin', true);
                 }
-                authService.checkIfUserValid(cred).success(function(data) {
-                    flashService.clearError();
-                    if (data.admin) {
-                        sessionService.set('admin', true);
-                    }
-                    sessionService.set('loggedin', true);
-                    $rootScope.$user = data;
-                    $state.go('home');
-                }).error(function(data) {
-                    flashService.showError(data.flash);
-                })
-
-            }
-        }
-    ]).controller('guidesController', ['$scope', '$http',
-        function($scope, $http) {
-
+                sessionService.set('loggedin', true);
+                $rootScope.$user = data;
+                $state.go('home');
+            }).error(function(data) {
+                flashService.showError(data.flash);
+            })
 
         }
-    ]).controller('newguideController', ['$scope',
-        function($scope) {
+    }
+])
 
-        }
-    ]).controller('userprofileController', ['$scope',
-        function($scope) {
+/*=============================================
+=            guidesController           =
+=============================================*/
 
+.controller('guidesController', ['$scope', '$http',
+    function($scope, $http) {
+
+
+    }
+])
+
+/*=============================================
+=            newguideController            =
+=============================================*/
+
+
+.controller('newguideController', ['$scope',
+    function($scope) {
+
+    }
+])
+
+/*=============================================
+=            userprofileController            =
+=============================================*/
+
+.controller('userprofileController', ['$scope',
+    function($scope) {
+
+    }
+])
+/*=============================================
+=            categoryController            =
+=============================================*/
+
+.controller('categoryController', ['$scope', 'categoryService',
+    function($scope, categoryService) {
+        $scope.addcategory = function() {
+            categoryService.addCategory({
+                name: $scope.category
+            }).success(function(res) {
+                if (res.save) {
+                    $scope.categoryMessage = "Category been saved!"
+                } else {
+                    $scope.categoryMessage = "something went wrong"
+                }
+            })
         }
-    ]).controller('categoryController', ['$scope', 'categoryService',
-        function($scope, categoryService) {
-            $scope.addcategory = function() {
-                categoryService.addCategory({
-                    name: $scope.category
-                }).success(function(res) {
-                    if (res.save) {
-                        $scope.categoryMessage = "Category been saved!"
-                    } else {
-                        $scope.categoryMessage = "something went wrong"
-                    }
-                })
-            }
-        }
-    ])
+    }
+])

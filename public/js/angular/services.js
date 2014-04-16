@@ -1,4 +1,9 @@
+/*===================================
+ =            AuthService            =
+ ===================================*/
+
 Guides.factory('authService', ['$http', 'sessionService',
+
     function($http, sessionService) {
         var checkIfUserValid = function(cred) {
             return $http.post('/login', cred);
@@ -24,6 +29,12 @@ Guides.factory('authService', ['$http', 'sessionService',
         };
     }
 ]).
+
+/*=======================================
+=            registerService            =
+=======================================*/
+
+
 factory('registerService', ['$http',
     function($http) {
 
@@ -35,6 +46,12 @@ factory('registerService', ['$http',
         };
     }
 ]).
+
+/*======================================
+=            sessionService            =
+======================================*/
+
+
 factory('sessionService', [
 
     function() {
@@ -51,6 +68,12 @@ factory('sessionService', [
         }
     }
 ]).
+
+/*====================================
+=            flashService            =
+====================================*/
+
+
 factory("flashService", function($rootScope) {
     return {
         showError: function(message) {
@@ -60,11 +83,14 @@ factory("flashService", function($rootScope) {
             $rootScope.flasherror = "";
         }
     }
-});
+}).
+
+/*===============================================
+=            authInterceptor Service            =
+===============================================*/
 
 
-
-Guides.factory('authInterceptor', function($rootScope, $q, sessionService, $location, flashService) {
+factory('authInterceptor', function($rootScope, $q, sessionService, $location, flashService) {
     return {
         request: function(config) {
             return config;
@@ -77,9 +103,13 @@ Guides.factory('authInterceptor', function($rootScope, $q, sessionService, $loca
             return response || $q.when(response);
         }
     };
-});
+}).
 
-Guides.factory('categoryService', function($http) {
+/*=========================================
+=            categoery Service            =
+=========================================*/
+
+factory('categoryService', function($http) {
     return {
         addCategory: function(category) {
             return $http.post('/addcategory', category)
