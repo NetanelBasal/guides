@@ -40,7 +40,7 @@
                         </small>
                     </div>
     <label>Email
-      <input type="email" ng-model="user.email" name="emailaddress" required>
+      <input type="email" ng-model="user.email" name="emailaddress" required check-if-email-exits>
     </label>
        <div class="error"
                         ng-show="signup.emailaddress.$dirty && signup.emailaddress.$invalid">
@@ -52,7 +52,12 @@
                         ng-show="signup.emailaddress.$error.email">
                         The email must be valid email
                         </small>
+                           <small class="error"
+                        ng-show="signup.emailaddress.$error.checkifemailexits">
+                        The email is already exits in the system
+                        </small>
                     </div>
+
 
      <label>Password
       <input type="password" ng-model="user.password" name="password" required ng-minlength="6" class="password">
@@ -69,7 +74,7 @@
                         </small>
                     </div>
      <label>Password Againn
-      <input type="password" ng-model="user.passwordagain" name="passwordagain" pw-check="password" password-match-check required>
+      <input type="password" ng-model="passwordagain" name="passwordagain" pw-check="password" password-match-check required>
     </label>
     <div class="error"
                         ng-show="signup.passwordagain.$dirty && signup.passwordagain.$invalid">
@@ -84,7 +89,7 @@
                     </div>
 
 
-    <input type="button" value="Register" class="button button-primary expand" ng-disabled="signup.$invalid">
+    <input type="button" value="Register" class="button button-primary expand" ng-disabled="signup.$invalid" ng-click="login()">
   </fieldset>
 </form>
 </div>

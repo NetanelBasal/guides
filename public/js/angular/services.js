@@ -22,9 +22,11 @@ Guides.factory('authService', ['$http', 'sessionService',
 factory('registerService', ['$http',
     function($http) {
 
-
+        var signup = function(user) {
+            return $http.post('/signup', user);
+        }
         return {
-
+            signup: signup
         };
     }
 ]).

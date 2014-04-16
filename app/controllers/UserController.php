@@ -16,5 +16,22 @@ class UserController extends BaseController {
 		if(Auth::logout()) return Response::json(['logout' => true], 200);
 	}
 
+	public function signup() {
+		if(User::create(Input::all())) {
+			 return Response::json(['action' => true], 200);
+		}
+		 return Response::json(['action' => false], 501);
+	}
+
+	public function checkIfEmailExits() {
+		$email = User::whereEmail(Input::json('email'))->get();
+		if(count($email)) {
+			 return Response::json(['email' => false]);
+		} else {
+			 return Response::json(['email' =>true]);
+		}
+
+	}
+
 
 }

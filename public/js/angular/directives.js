@@ -15,3 +15,25 @@ Guides.directive('passwordMatchCheck', [
         }
     }
 ]);
+
+Guides.directive('checkIfEmailExits', ['$http',
+
+    function($http) {
+        return {
+            require: 'ngModel',
+            link: function(scope, elem, attrs, ctrl) {
+                elem.on('blur', function() {
+                    scope.$apply(function() {
+                        var checkemail = $http.post('/checkifemailexits', {
+                            email: elem.val()
+                        });
+                        checkemail.success(function(res) {
+                            ctrl.$setValidity('checkifemailexits', res.email);
+                        })
+
+                    });
+                });
+            }
+        }
+    }
+]);
