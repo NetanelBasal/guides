@@ -60,6 +60,7 @@ Guides
                     sessionService.set('admin', true);
                 }
                 sessionService.set('loggedin', true);
+                sessionService.set('token', data.session_token);
                 sessionService.set('user_id', data.id);
                 sessionService.set('firstname', data.firstname);
                 sessionService.set('email', data.email);

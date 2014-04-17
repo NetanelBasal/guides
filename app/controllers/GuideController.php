@@ -15,12 +15,10 @@ class GuideController extends \BaseController {
 
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 * POST /guide
-	 *
-	 * @return Response
-	 */
+/*========================================
+=            Create new guide            =
+========================================*/
+
 	public function store()
 	{
 		if(Guide::create(Input::all())) {

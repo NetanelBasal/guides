@@ -13,6 +13,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Guide');
 	}
 
+/*===================================================
+=            Check if user in the system            =
+===================================================*/
 
 	public static function checkIfUserValid($email,$password) {
 	    if(Auth::attempt(['email' => $email, 'password' => $password])) {
@@ -21,6 +24,20 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    return false;
 	}
 
+/*=====================================================
+=           Set user token and save id DB            =
+=====================================================*/
+
+	public static function setUserToken() {
+		$user = Auth::user();
+		$user->session_token = Hash::make(Str::random(24));
+		if ($user->save()) return true;
+	}
+
+
+/*===================================================
+=            Save password field as Hash            =
+===================================================*/
 
 	public function setPasswordAttribute($value) {
 
