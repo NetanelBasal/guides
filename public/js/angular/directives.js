@@ -51,20 +51,6 @@ Guides.directive('passwordMatchCheck', [
     }
 }).
 
-/*===================================
-=            Pagintation Directive  =
-===================================*/
-
-directive('pagination', [
-
-    function() {
-        return {
-            restrict: 'A',
-            templateUrl: 'partials/pagination.html'
-        };
-    }
-]).
-
 /*=========================================
 =            go Back Directive            =
 =========================================*/
@@ -80,4 +66,66 @@ directive('goBack', ['$window',
             }
         };
     }
-])
+]).
+
+
+/*===================================
+=            Pagintation Directive  =
+===================================*/
+
+
+directive('pagination', ['Guides',
+
+    function(Guides) {
+        return {
+            restrict: 'A',
+            templateUrl: 'partials/pagination.html',
+            link: function(scope) {
+
+
+                scope.currentPage = 1;
+                scope.pagesNumber = [];
+
+                Guides.getAllGuides(scope.currentPage).success(function(data) {
+                    scope.totalPages = data.last_page;
+                    scope.currentPage = data.current_page;
+                    scope.guides = data.data;
+                    for (var i = 1; i <= scope.totalPages; i++) {
+                        scope.pagesNumber.push(i);
+                    }
+
+                });
+
+
+                scope.setPage = function(page) {
+                    Guides.getAllGuides(page).success(function(data) {
+                        scope.currentPage = data.current_page;
+                        scope.guides = data.data;
+                    });
+                }
+
+                scope.isCurrentPage = function(page) {
+                    return scope.currentPage == page;
+                }
+
+
+                scope.pageBack = function() {
+                    page = scope.currentPage - 1;
+                    if (page >= 1) {
+                        scope.setPage(page);
+                    }
+
+                }
+                scope.pageForward = function() {
+                    page = scope.currentPage + 1;
+                    if (page <= scope.totalPages) {
+                        scope.setPage(page);
+                    }
+                }
+
+
+
+            }
+        }
+    }
+]);

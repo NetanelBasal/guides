@@ -9,7 +9,10 @@ Guides
                 authService.logout().success(function() {
                     sessionService.unset('loggedin');
                     sessionService.unset('admin');
-                    $rootScope.$user = {};
+                    sessionService.unset('email');
+                    sessionService.unset('firstname');
+                    sessionService.unset('token');
+                    sessionService.unset('user_id');
                     $state.go('home');
                 })
             }
@@ -78,58 +81,17 @@ Guides
 =            guidesController           =
 =============================================*/
 
-.controller('guidesController', ['$scope', '$http', 'Guides', '$state', '$window',
-    function($scope, $http, Guides, $state, $window) {
+.controller('guidesController', ['$scope', '$http', 'Guides',
+    function($scope, $http, Guides) {
 
-
-        $scope.currentPage = 1;
-        $scope.pagesNumber = [];
-
-        Guides.getAllGuides($scope.currentPage).success(function(data) {
-            $scope.totalPages = data.last_page;
-            $scope.currentPage = data.current_page;
-            $scope.guides = data.data;
-            for (var i = 1; i <= $scope.totalPages; i++) {
-                $scope.pagesNumber.push(i);
-            }
-
-        });
-
-
-        $scope.setPage = function(page) {
-            Guides.getAllGuides(page).success(function(data) {
-                $scope.currentPage = data.current_page;
-                $scope.guides = data.data;
-            });
-        }
-
-        $scope.isCurrentPage = function(page) {
-            return $scope.currentPage == page;
-        }
-
-
-        $scope.pageBack = function() {
-            page = $scope.currentPage - 1;
-            if (page >= 1) {
-                $scope.setPage(page);
-            }
-
-        }
-        $scope.pageForward = function() {
-            page = $scope.currentPage + 1;
-            if (page <= $scope.totalPages) {
-                $scope.setPage(page);
-            }
-        }
 
         /*====================================
         =            delete Guide            =
         ====================================*/
 
-
         $scope.deleteGuide = function(id) {
             $http.delete('/api/guides/' + id).success(function(data) {
-
+                location.reload();
             })
         }
     }

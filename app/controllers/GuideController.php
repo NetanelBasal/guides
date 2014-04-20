@@ -2,6 +2,13 @@
 
 class GuideController extends \BaseController {
 
+
+	public function __construct() {
+			$this->beforeFilter('admin',
+                    array('only' => array('destroy', 'edit')));
+	}
+
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /guide

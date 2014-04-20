@@ -10,7 +10,7 @@
     @include('template.nav-bar')
     <div class="row">
     <div class="small-12 columns small-centerd">
-        <div ng-show="flasherror" class=" warning alert-box">
+        <div ng-show="flasherror" class="warning alert-box">
             [[flasherror]]
         </div>
     </div>
