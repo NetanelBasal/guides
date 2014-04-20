@@ -1,0 +1,7 @@
+<ul class="pagination">
+
+  <li class="arrow" ><a ng-click="pageBack()" ng-hide="currentPage <= 1">&laquo;</a></li>
+  <li ng-repeat="page in pagesNumber"
+  ng-class="{current: isCurrentPage(page)}"><a ng-click="setPage(page)">[[page]]</a></li>
+  <li class="arrow" ng-hide="currentPage == totalPages" ><a ng-click="pageForward()">&raquo;</a></li>
+</ul>

@@ -13,7 +13,7 @@ Guides
                     $state.go('home');
                 })
             }
-            $scope.$state = $state;
+            $rootScope.$state = $state;
         }
     ])
 
@@ -78,10 +78,60 @@ Guides
 =            guidesController           =
 =============================================*/
 
-.controller('guidesController', ['$scope', '$http',
-    function($scope, $http) {
+.controller('guidesController', ['$scope', '$http', 'Guides', '$state', '$window',
+    function($scope, $http, Guides, $state, $window) {
 
 
+        $scope.currentPage = 1;
+        $scope.pagesNumber = [];
+
+        Guides.getAllGuides($scope.currentPage).success(function(data) {
+            $scope.totalPages = data.last_page;
+            $scope.currentPage = data.current_page;
+            $scope.guides = data.data;
+            for (var i = 1; i <= $scope.totalPages; i++) {
+                $scope.pagesNumber.push(i);
+            }
+
+        });
+
+
+        $scope.setPage = function(page) {
+            Guides.getAllGuides(page).success(function(data) {
+                $scope.currentPage = data.current_page;
+                $scope.guides = data.data;
+            });
+        }
+
+        $scope.isCurrentPage = function(page) {
+            return $scope.currentPage == page;
+        }
+
+
+        $scope.pageBack = function() {
+            page = $scope.currentPage - 1;
+            if (page >= 1) {
+                $scope.setPage(page);
+            }
+
+        }
+        $scope.pageForward = function() {
+            page = $scope.currentPage + 1;
+            if (page <= $scope.totalPages) {
+                $scope.setPage(page);
+            }
+        }
+
+        /*====================================
+        =            delete Guide            =
+        ====================================*/
+
+
+        $scope.deleteGuide = function(id) {
+            $http.delete('/api/guides/' + id).success(function(data) {
+
+            })
+        }
     }
 ])
 
@@ -108,6 +158,8 @@ Guides
             newguideService.saveGuide($scope.n).success(function(re) {
                 if (re.save) $scope.successaddguide = 'Thanks you the Guide is saved!';
             })
+
+
 
         }
 
@@ -140,5 +192,17 @@ Guides
                 }
             })
         }
+    }
+]).
+/*==========================================
+=            oneGuideController            =
+==========================================*/
+controller('oneGuideController', ['$scope', 'Guides', '$http', '$stateParams',
+    function($scope, Guides, $http, $stateParams) {
+        var id = $stateParams.id;
+        $http.get('/api/guides/' + id).success(function(data) {
+            $scope.guide = data;
+        })
+
     }
 ])

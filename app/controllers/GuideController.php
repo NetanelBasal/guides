@@ -10,7 +10,7 @@ class GuideController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		return Guide::paginate(1);
 	}
 
 
@@ -35,7 +35,7 @@ class GuideController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return Guide::find($id);
 	}
 
 	/**
@@ -71,7 +71,10 @@ class GuideController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$guide = Guide::find($id);
+		if($guide->delete()) {
+			 return Response::json(['delete' => true]);
+		}
 	}
 
 }

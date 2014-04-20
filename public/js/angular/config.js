@@ -65,7 +65,7 @@ config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
             controller: 'loginController'
         }).
         state('guides', {
-            url: '/guides',
+            url: '/guides/:id',
             templateUrl: 'partials/all-guides.html',
             controller: 'guidesController',
 
@@ -87,6 +87,11 @@ config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
             templateUrl: 'partials/admin/add-category.html',
             controller: 'categoryController',
             admin: true
+        }).
+        state('oneguide', {
+            url: '/guide/:id',
+            templateUrl: 'partials/one-guide.html',
+            controller: 'oneGuideController'
         })
     }
 ])

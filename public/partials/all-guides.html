@@ -1,1 +1,20 @@
-<h1>all guides</h1>
+<div class="small-12 columns small-centered">
+<div>
+        <h1>all guides</h1>
+    <div ng-repeat="guide in guides">
+        <h1>[[guide.title]]</h1>
+        <p>[[guide.body.substr(0,300)]] <a ng-href="/#/guide/[[guide.id]]">continue reading</a></p>
+        <div ng-show="$auth.isAdmin()">
+            <input type="button" value="delete" ng-click="deleteGuide([[guide.id]])" class="button tiny alert">
+            <input type="button" value="edit" ng-click="editGuide([[guide.id]])" class="button secondary tiny">
+        </div>
+    </div>
+</div>
+
+<div pagination></div>
+
+
+
+
+</div>
+

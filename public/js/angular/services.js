@@ -134,3 +134,30 @@ factory('newguideService', function($http) {
         }
     }
 })
+    .
+
+/*======================================
+=            Guides Service            =
+======================================*/
+
+
+factory('Guides', function($http) {
+
+    var getAllGuides = function(page) {
+        return $http.get('/api/guides', {
+            params: {
+                page: page
+            }
+        });
+
+
+    }
+
+
+    return {
+        getAllGuides: getAllGuides,
+        OneGuide: function() {
+            return $http.get('/api/guides/3');
+        }
+    }
+})

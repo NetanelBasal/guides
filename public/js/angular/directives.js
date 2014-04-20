@@ -49,4 +49,35 @@ Guides.directive('passwordMatchCheck', [
     return function(scope, element, attrs) {
         $parse(attrs.ngModel).assign(scope, attrs.value);
     }
-});
+}).
+
+/*===================================
+=            Pagintation Directive  =
+===================================*/
+
+directive('pagination', [
+
+    function() {
+        return {
+            restrict: 'A',
+            templateUrl: 'partials/pagination.html'
+        };
+    }
+]).
+
+/*=========================================
+=            go Back Directive            =
+=========================================*/
+
+directive('goBack', ['$window',
+    function($window) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                element.on('click', function() {
+                    $window.history.back();
+                });
+            }
+        };
+    }
+])
