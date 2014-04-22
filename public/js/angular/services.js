@@ -65,6 +65,8 @@ factory('sessionService', [
             unset: function(key) {
                 return sessionStorage.removeItem(key);
             }
+
+
         }
     }
 ]).

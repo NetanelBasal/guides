@@ -7,12 +7,7 @@ Guides
         function($scope, authService, $state, sessionService, $rootScope) {
             $scope.logout = function() {
                 authService.logout().success(function() {
-                    sessionService.unset('loggedin');
-                    sessionService.unset('admin');
-                    sessionService.unset('email');
-                    sessionService.unset('firstname');
-                    sessionService.unset('token');
-                    sessionService.unset('user_id');
+                    sessionStorage.clear();
                     $state.go('home');
                 })
             }
@@ -59,16 +54,16 @@ Guides
         $scope.loginUser = function() {
             authService.checkIfUserValid($scope.cred).success(function(data) {
                 flashService.clearError();
-                if (data.admin) {
-                    sessionService.set('admin', true);
-                }
                 sessionService.set('loggedin', true);
-                sessionService.set('token', data.session_token);
-                sessionService.set('user_id', data.id);
-                sessionService.set('firstname', data.firstname);
-                sessionService.set('email', data.email);
+                _.forEach(data, function(value, key) {
+                    if (data.admin) {
+                        sessionService.set('admin', true);
+                    }
+                        sessionService.set(key,value);
+                });
 
                 $state.go('home');
+                
             }).error(function(data) {
                 flashService.showError(data.flash);
             })

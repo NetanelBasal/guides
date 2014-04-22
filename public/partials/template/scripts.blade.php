@@ -1,6 +1,6 @@
 <script src="{{asset('js\vendor\jquery\dist\jquery.min.js')}}"></script>
 <script src="{{asset('js/vendor/foundation/js/foundation.min.js')}}"></script>
-<!-- <script src="{{asset('js/vendor/lodash/dist/lodash.min.js')}}"></script> -->
+ <script src="{{asset('js/vendor/lodash/dist/lodash.min.js')}}"></script>
 <script src="{{asset('js\vendor\angular\angular.min.js')}}"></script>
 <script src="{{asset('js\vendor\angular-ui-router\release\angular-ui-router.min.js')}}"></script>
 <!-- <script src="{{asset('js\vendor\restangular\dist\restangular.min.js')}}"></script> -->
