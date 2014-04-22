@@ -4,8 +4,8 @@ class GuideController extends \BaseController {
 
 
 	public function __construct() {
-			$this->beforeFilter('admin',
-                    array('only' => array('destroy', 'edit')));
+
+            $this->beforeFilter('auth', array('only' => array('store', 'update', 'myGuides')));
 	}
 
 
@@ -17,7 +17,7 @@ class GuideController extends \BaseController {
 	 */
 	public function index()
 	{
-		return Guide::paginate(1);
+		return Guide::paginate(6);
 	}
 
 
@@ -82,6 +82,15 @@ class GuideController extends \BaseController {
 		if($guide->delete()) {
 			 return Response::json(['delete' => true]);
 		}
+
 	}
+
+    public function myGuides() {
+        if(Input::get('id') == Auth::user()->id) {
+            return Response::json(Guide::where('user_id', '=', Input::get('id') )->get());
+        }else {
+            return Response::json(['not' => true]);
+        }
+    }
 
 }

@@ -63,7 +63,7 @@ Guides
                 });
 
                 $state.go('home');
-                
+
             }).error(function(data) {
                 flashService.showError(data.flash);
             })
@@ -76,17 +76,20 @@ Guides
 =            guidesController           =
 =============================================*/
 
-.controller('guidesController', ['$scope', '$http', 'Guides',
-    function($scope, $http, Guides) {
+.controller('guidesController', ['$scope', '$http', 'Guides', 'categoryService',
+    function($scope, $http, Guides, categoryService) {
 
-
+        categoryService.getCategories().success(function(res) {
+            $scope.categories = res;
+        })
         /*====================================
         =            delete Guide            =
         ====================================*/
 
         $scope.deleteGuide = function(id) {
+
             $http.delete('/api/guides/' + id).success(function(data) {
-                location.reload();
+//                location.reload();
             })
         }
     }
@@ -115,8 +118,6 @@ Guides
             newguideService.saveGuide($scope.n).success(function(re) {
                 if (re.save) $scope.successaddguide = 'Thanks you the Guide is saved!';
             })
-
-
 
         }
 
@@ -162,4 +163,24 @@ controller('oneGuideController', ['$scope', 'Guides', '$http', '$stateParams',
         })
 
     }
-])
+]).
+
+    /*==========================================
+     =            myGuidesController           =
+     ==========================================*/
+    controller('myGuidesController', function($scope,Guides, sessionService, $http) {
+
+        Guides.getMyGuides(sessionService.get('id')).success(function(res) {
+            $scope.guides = res;
+        });
+
+        $scope.deleteGuide = function(id) {
+            $http.delete('/api/guides/' + id).success(function(data) {
+                location.reload();
+            })
+        }
+
+        $scope.editGuide = function(id) {
+            console.log('f');
+        }
+    });

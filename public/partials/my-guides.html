@@ -1,0 +1,14 @@
+<div class="small-12 columns small-centered">
+    <h1>my guides</h1>
+    <p ng-hide="guides">you dont have guides.</p>
+    <div ng-repeat="guide in guides" ng-show="guides">
+        <h1>[[guide.title]]</h1>
+        <p>[[guide.body]]</p>
+        <div>
+            <input type="button" value="delete" ng-click="deleteGuide([[guide.id]])" class="button tiny alert">
+            <input type="button" value="edit" ng-click="editGuide([[guide.id]])" class="button tiny success">
+        </div>
+    </div>
+</div>
+
+

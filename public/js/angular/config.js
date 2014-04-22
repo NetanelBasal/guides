@@ -67,14 +67,14 @@ config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
         state('guides', {
             url: '/guides/:id',
             templateUrl: 'partials/all-guides.html',
-            controller: 'guidesController',
+            controller: 'guidesController'
 
         }).
         state('new-guide', {
             url: '/new-guide',
             templateUrl: 'partials/new-guide.html',
             controller: 'newguideController',
-            authenticate: true,
+            authenticate: true
         }).
         state('user-profile', {
             url: '/profile',
@@ -92,6 +92,12 @@ config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
             url: '/guide/:id',
             templateUrl: 'partials/one-guide.html',
             controller: 'oneGuideController'
-        })
+        }).
+            state('my-guides', {
+                url: '/my-guides',
+                templateUrl:'partials/my-guides.html',
+                controller: 'myGuidesController',
+                authenticate: true
+            })
     }
 ])

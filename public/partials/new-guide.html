@@ -42,7 +42,7 @@
                     </div>
             </label>
             <input type="text" ng-model="n.category_id"  style="display:none;" name="n.category_id">
-            <input type="text" ng-model="n.user_id" value="[[$session.get('user_id')]]" name="n.user_id" style="display:none;" copy-to-model>
+            <input type="text" ng-model="n.user_id" value="[[$session.get('id')]]" name="n.user_id" style="display:none;" copy-to-model>
             <input type="button" value="Add Guide" class="button button-primary expand" ng-disabled="newguide.$invalid" ng-click="addnewguide()">
             <div class="alert-box" ng-show="successaddguide">[[successaddguide]]</div>
         </fieldset>

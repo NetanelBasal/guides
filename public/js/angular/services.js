@@ -151,15 +151,19 @@ factory('Guides', function($http) {
                 page: page
             }
         });
-
-
     }
+        var getMyGuides = function(userid) {
+            return  $http({
+                url: 'api/myguides',
+                method: "POST",
+                data: { 'id' : userid }
+            });
+        }
 
 
     return {
         getAllGuides: getAllGuides,
-        OneGuide: function() {
-            return $http.get('/api/guides/3');
-        }
+        getMyGuides: getMyGuides
+
     }
 })

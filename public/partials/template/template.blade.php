@@ -22,5 +22,9 @@
 
 
     @include('template.scripts')
+<!--    <script>-->
+<!--        Guides.constant('userid', '' || sessionStorage.getItem('id'));-->
+<!--            not good because i need to refresh the page every time i logged out and only then the session key is updated with new value-->
+<!--    </script>-->
 </body>
 </html>

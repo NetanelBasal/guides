@@ -28,9 +28,11 @@ Route::post('addcategory', 'AdminController@addCategory');
 
 
 Route::get('getcategories', 'CategoryController@index');
+Route::get('searchbycategory', 'CategoryController@getGuidesByCategory');
 
 /*=============================================
 =            Guides Resource            =
 =============================================*/
 
 Route::resource('api/guides', 'GuideController');
+Route::post('api/myguides', 'GuideController@myGuides');

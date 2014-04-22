@@ -21,6 +21,8 @@
       <li ng-class="{active: $state.includes('user-profile')}"><a ui-sref="user-profile" ng-show="$auth.isLoggedIn()">my Profile</a></li>
       <li ng-class="{active: $state.includes('new-guide')}"><a ui-sref="new-guide" ng-show="$auth.isLoggedIn()">write Guide
       </a></li>
+        <li ng-class="{active: $state.includes('my-guides')}"><a ui-sref="my-guides" ng-show="$auth.isLoggedIn()">My Guides
+            </a></li>
       <li ng-class="{active: $state.includes('new-category')}"><a ui-sref="new-category" ng-show="$auth.isAdmin()">add Category</a></li>
 
     </ul>
