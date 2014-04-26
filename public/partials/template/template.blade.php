@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Guides</title>
+    <title>Guide</title>
     @include('template.header')
 </head>
-<body ng-app="Guides">
+<body ng-app="Guides" ng-cloak>
 
     @include('template.nav-bar')
     <div class="row">
@@ -15,6 +15,7 @@
         </div>
     </div>
  <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+
         <div class="small-12 columns">
             <div ui-view></div>
         </div>
@@ -26,5 +27,7 @@
 <!--        Guides.constant('userid', '' || sessionStorage.getItem('id'));-->
 <!--            not good because i need to refresh the page every time i logged out and only then the session key is updated with new value-->
 <!--    </script>-->
+
+
 </body>
 </html>

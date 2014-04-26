@@ -85,11 +85,12 @@ directive('pagination', ['Guides',
 
                 scope.currentPage = 1;
                 scope.pagesNumber = [];
-
+                scope.loading = true;
                 Guides.getAllGuides(scope.currentPage).success(function(data) {
                     scope.totalPages = data.last_page;
                     scope.currentPage = data.current_page;
                     scope.guides = data.data;
+                    scope.loading = false;
                     for (var i = 1; i <= scope.totalPages; i++) {
                         scope.pagesNumber.push(i);
                     }
@@ -125,7 +126,46 @@ directive('pagination', ['Guides',
 
 
 
+                $('.search').on('keyup', function() {
+
+                        Guides.searchGuide(scope.search).success(function(data) {
+                            scope.noresults = false;
+                            scope.pagesNumber = [];
+                            scope.totalPages = data.last_page;
+                            scope.currentPage = data.current_page;
+                            scope.guides = data.data;
+                            if(data.data.length) {
+                                for (var i = 1; i <= scope.totalPages; i++) {
+                                    scope.pagesNumber.push(i);
+                                }
+                            }else {
+                                scope.noresults = true;
+                            }
+
+
+                        });
+
+
+                })
+
+                $('.c').change(function() {
+                    Guides.searchByCategory(scope.categoryid.id).success(function(data) {
+                        scope.noresults = false;
+                        scope.pagesNumber = [];
+                        scope.totalPages = data.last_page;
+                        scope.currentPage = data.current_page;
+                        scope.guides = data.data;
+                        for (var i = 1; i <= scope.totalPages; i++) {
+                            scope.pagesNumber.push(i);
+                        }
+                    })
+                })
+
+
+
+
+
             }
         }
     }
-]);
+])

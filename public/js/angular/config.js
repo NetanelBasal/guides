@@ -67,7 +67,12 @@ config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
         state('guides', {
             url: '/guides/:id',
             templateUrl: 'partials/all-guides.html',
-            controller: 'guidesController'
+            controller: 'guidesController',
+            resolve: {
+                categories: function(categoryService) {
+                    return categoryService.getCategories();
+                }
+            }
 
         }).
         state('new-guide', {

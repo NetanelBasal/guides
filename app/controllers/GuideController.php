@@ -93,4 +93,14 @@ class GuideController extends \BaseController {
         }
     }
 
+    public function search() {
+        $val = Input::get('search');
+        return Guide::where('body', 'LIKE', '%'.$val.'%')->paginate(6);
+    }
+
+    public function searchcategory() {
+        $val = Input::get('id');
+        return Guide::where('category_id', '=', $val)->paginate(6);
+    }
+
 }

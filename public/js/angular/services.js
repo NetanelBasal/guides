@@ -117,7 +117,10 @@ factory('categoryService', function($http) {
             return $http.post('/addcategory', category)
         },
         getCategories: function() {
-            return $http.get('/getcategories');
+            var promise = $http({ method: 'GET', url: '/getcategories' }).success(function(data) {
+                return data;
+            });
+            return promise
         }
     }
 }).
@@ -160,10 +163,28 @@ factory('Guides', function($http) {
             });
         }
 
+        var searchGuide = function(value) {
+            return $http.get('/api/search', {
+                params: {
+                    search: value
+                }
+            })
+        }
+
+        var searchByCategory = function(catid) {
+            return $http.get('/api/searchcategory', {
+                params: {
+                id: catid
+            }
+            })
+        }
+
 
     return {
         getAllGuides: getAllGuides,
-        getMyGuides: getMyGuides
+        getMyGuides: getMyGuides,
+        searchGuide: searchGuide,
+        searchByCategory: searchByCategory
 
     }
 })

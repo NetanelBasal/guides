@@ -36,3 +36,5 @@ Route::get('searchbycategory', 'CategoryController@getGuidesByCategory');
 
 Route::resource('api/guides', 'GuideController');
 Route::post('api/myguides', 'GuideController@myGuides');
+Route::get('api/search', 'GuideController@search');
+Route::get('api/searchcategory', 'GuideController@searchcategory');

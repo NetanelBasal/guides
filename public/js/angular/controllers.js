@@ -76,12 +76,11 @@ Guides
 =            guidesController           =
 =============================================*/
 
-.controller('guidesController', ['$scope', '$http', 'Guides', 'categoryService',
-    function($scope, $http, Guides, categoryService) {
+.controller('guidesController', ['$scope', '$http', 'Guides', 'categories',
+    function($scope, $http, Guides, categories) {
 
-        categoryService.getCategories().success(function(res) {
-            $scope.categories = res;
-        })
+        $scope.categories = categories.data;
+
         /*====================================
         =            delete Guide            =
         ====================================*/
@@ -169,9 +168,11 @@ controller('oneGuideController', ['$scope', 'Guides', '$http', '$stateParams',
      =            myGuidesController           =
      ==========================================*/
     controller('myGuidesController', function($scope,Guides, sessionService, $http) {
-
+        $scope.net = true;
         Guides.getMyGuides(sessionService.get('id')).success(function(res) {
+
             $scope.guides = res;
+            $scope.net = false;
         });
 
         $scope.deleteGuide = function(id) {
